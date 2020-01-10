@@ -10,6 +10,7 @@
 
 <body>
     <header>
+        <img id='logo' src='boostmi.png'>
     </header>
     <main id='app'>
         <section id='customer-listing' v-if='state = "listing"'>
@@ -21,15 +22,15 @@
                     <th v-on:click='sort("email")' v-bind:class='{sortingAsc : sortVar == "email" && sortAsc, sortingDesc :  sortVar == "email" && !sortAsc }'>Email</th>
                     <th v-on:click='sort("company")' v-bind:class='{sortingAsc : sortVar == "company" && sortAsc, sortingDesc :  sortVar == "company" && !sortAsc }'>Company</th>
                 </tr>
-                <tr>
-                    <th><input v-model='searchFields.id'></th>
-                    <th><input v-model='searchFields.firstName'></th>
-                    <th><input v-model='searchFields.lastName'></th>
-                    <th><input v-model='searchFields.email'></th>
-                    <th><input v-model='searchFields.company'></th>
-                </tr>
+                <tr v-on:click>
+                    <th><input v-model='searchFields.id' placeholder='Search...'></th>
+                    <th><input v-model='searchFields.firstName' placeholder='Search...'></th>
+                    <th><input v-model='searchFields.lastName' placeholder='Search...'></th>
+                    <th><input v-model='searchFields.email' placeholder='Search...'></th>
+                    <th><input v-model='searchFields.company' placeholder='Search...'></th>
+                </tr v-on:click>
                 <tr v-for='cust in filteredCustomers'>
-                    <td>{{cust.id}}</td>
+                    <td >{{cust.id}}</td>
                     <td>{{cust.firstName}}</td>
                     <td>{{cust.lastName}}</td>
                     <td>{{cust.email}}</td>
@@ -37,13 +38,13 @@
                 </tr>
             </table>
         </section>
-        <section id='customer-listing' v-if='state = "listing"'>
+        <section id='customer-create' v-if='state == "create"'>
             
         </section>
-        <section id='customer-listing' v-if='state = "listing"'>
+        <section id='customer-view' v-if='state == "view"'>
             
         </section>
-        <section id='customer-listing' v-if='state = "listing"'>
+        <section id='customer-update' v-if='state == "update"'>
             
         </section>
     </main>

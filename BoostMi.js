@@ -18,7 +18,8 @@ $(document).ready(function() {
                 company: '',
                 lastName: '',
                 id: '',
-            }
+            },
+            
         },
         methods: {
             // Sets the sort variables
@@ -45,6 +46,8 @@ $(document).ready(function() {
                 filtered = customerCopy.filter(customer => {
                     for([field,searchTerm] of Object.entries(searchFields)) {
                         // If search term is not empty and is found in string
+                        // Very simple string matching search (just to show that searching works)
+                        // Could be modified to use better search/matching
                         if (typeof customer[field] == 'string') {
                             if (searchTerm.trim() != '' && !customer[field].toLowerCase().includes(searchTerm.toLowerCase())) {
                                 return false;
@@ -67,7 +70,7 @@ $(document).ready(function() {
                     }
                 })
             }
-        }
+        },
     });
     $.ajax({
         url: baseUrl + 'customers',

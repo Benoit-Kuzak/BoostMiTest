@@ -1,3 +1,13 @@
+header {
+    height: 60px;
+    background: rgb(255, 213, 123);
+    background-color: #FFD06B;
+    border-bottom: 2px solid black;
+}
+header #logo {
+    height: calc(100% - 8px);
+    margin: 4px 0px;
+}
 body {
     margin: 0;    
 }
@@ -18,14 +28,29 @@ section {
 table th, table td {
     min-width: 50px;
     text-align: center;
+    padding: 3px 0px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+table th:first-of-type, table td:first-of-type {
+    border-left: 0;
+}
+table th:last-of-type, table td:last-of-type {
+    border-right: 0;
 }
 table {
     width: 100%;
+    border-collapse: collapse;
 }
-table tr {
-    border-bottom: 1px solid black;
-}
-table td {
+table th {
     cursor: pointer;
-    padding: 3px 0px;
+    font-size: 18px;
+}
+table th input {
+    width: calc(100% - 20px);
+    padding: 3px 5px;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 16px;
+
 }
