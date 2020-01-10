@@ -1,0 +1,51 @@
+<head>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <!-- I use the vue.js extension for devtools on chrome to debug -->
+    <script src="vue.js"></script>
+
+    <!-- My self created js and css files -->
+    <script src='BoostMi.js'></script>
+    <link rel="stylesheet" href="BoostMi.css">
+</head>
+
+<body>
+    <header>
+    </header>
+    <main id='app'>
+        <section id='customer-listing' v-if='state = "listing"'>
+            <table v-if='customers'>
+                <tr>
+                    <th v-on:click='sort("id")' v-bind:class='{sortingAsc : sortVar == "id" && sortAsc, sortingDesc :  sortVar == "id" && !sortAsc }'>ID</th>
+                    <th v-on:click='sort("firstName")'v-bind:class='{sortingAsc : sortVar == "firstName" && sortAsc, sortingDesc :  sortVar == "firstName" && !sortAsc }'>First Name</th>
+                    <th v-on:click='sort("lastName")' v-bind:class='{sortingAsc : sortVar == "lastName" && sortAsc, sortingDesc :  sortVar == "lastName" && !sortAsc }'>Last Name</th>
+                    <th v-on:click='sort("email")' v-bind:class='{sortingAsc : sortVar == "email" && sortAsc, sortingDesc :  sortVar == "email" && !sortAsc }'>Email</th>
+                    <th v-on:click='sort("company")' v-bind:class='{sortingAsc : sortVar == "company" && sortAsc, sortingDesc :  sortVar == "company" && !sortAsc }'>Company</th>
+                </tr>
+                <tr>
+                    <th><input v-model='searchFields.id'></th>
+                    <th><input v-model='searchFields.firstName'></th>
+                    <th><input v-model='searchFields.lastName'></th>
+                    <th><input v-model='searchFields.email'></th>
+                    <th><input v-model='searchFields.company'></th>
+                </tr>
+                <tr v-for='cust in filteredCustomers'>
+                    <td>{{cust.id}}</td>
+                    <td>{{cust.firstName}}</td>
+                    <td>{{cust.lastName}}</td>
+                    <td>{{cust.email}}</td>
+                    <td>{{cust.company}}</td>
+                </tr>
+            </table>
+        </section>
+        <section id='customer-listing' v-if='state = "listing"'>
+            
+        </section>
+        <section id='customer-listing' v-if='state = "listing"'>
+            
+        </section>
+        <section id='customer-listing' v-if='state = "listing"'>
+            
+        </section>
+    </main>
+</body>
+
