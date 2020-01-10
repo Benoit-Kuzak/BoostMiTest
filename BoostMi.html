@@ -13,7 +13,7 @@
         <img id='logo' src='boostmi.png'>
     </header>
     <main id='app'>
-        <section id='customer-listing' v-if='state = "listing"'>
+        <section id='customer-listing' v-if='state == "listing"'>
             <table v-if='customers'>
                 <tr>
                     <th v-on:click='sort("id")' v-bind:class='{sortingAsc : sortVar == "id" && sortAsc, sortingDesc :  sortVar == "id" && !sortAsc }'>ID</th>
@@ -29,24 +29,23 @@
                     <th><input v-model='searchFields.email' placeholder='Search...'></th>
                     <th><input v-model='searchFields.company' placeholder='Search...'></th>
                 </tr v-on:click>
-                <tr v-for='cust in filteredCustomers'>
-                    <td >{{cust.id}}</td>
+                <tr v-for='cust in filteredCustomers' v-on:click='state = "view"; currentCust = cust.id'>
+                    <td>{{cust.id}}</td>
                     <td>{{cust.firstName}}</td>
                     <td>{{cust.lastName}}</td>
                     <td>{{cust.email}}</td>
-                    <td>{{cust.company}}</td>
+                    <td>{{cust.company}}</td>   
                 </tr>
             </table>
         </section>
-        <section id='customer-create' v-if='state == "create"'>
-            
-        </section>
         <section id='customer-view' v-if='state == "view"'>
-            
+            <div class='main-info'>
+                <img v-bind:src='customers[currentCust].picture'></img>
+                <div v-if='state = "update" || state = "create"'><input></div>
+            </div>
+
         </section>
-        <section id='customer-update' v-if='state == "update"'>
-            
-        </section>
+       
     </main>
 </body>
 

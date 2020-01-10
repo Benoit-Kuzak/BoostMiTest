@@ -25,6 +25,10 @@ section {
     margin: 10px;
     box-sizing: border-box;
 }
+section#customer-view {
+    max-width: 600px;
+    margin: 10px auto;
+}
 table th, table td {
     min-width: 50px;
     text-align: center;
@@ -52,5 +56,11 @@ table th input {
     border: 1px solid black;
     border-radius: 4px;
     font-size: 16px;
-
+}
+.main-info {
+    width: 100%;
+}
+.main-info img, .main-info div {
+    display: inline-block;
+    height: 128px;
 }
