@@ -54,6 +54,7 @@ $(document).ready(function() {
                 this.currentCust = Object.assign({}, emptyCust);
             },
             submitCust() {
+                
                 if (!this.currentCust.id) {
                     $.ajax({
                         type: "POST",
@@ -62,8 +63,8 @@ $(document).ready(function() {
                         contentType: "application/json",
                         dataType: 'json',
                         success: function(response) {
-                            this.customers[this.currentCust.id] = Object.assign({},this.currentCust);
-                            this.state = "view";
+                            app.customers[app.currentCust.id] = response;
+                            app.state = "view";
                         }
                     })
                 } else {
@@ -74,8 +75,8 @@ $(document).ready(function() {
                         contentType: "application/json",
                         dataType: 'json',
                         success: function(response) {
-                            this.customers[this.currentCust.id] = Object.assign({},this.currentCust);
-                            this.state = "view";
+                            app.customers[app.currentCust.id] = response;
+                            app.state = "view";
                         }
                     })
                     
