@@ -41,7 +41,7 @@
                     </tr>
                 </table>
             </section>
-            <input id='customer-view' v-if='state != "listing"'>
+            <section id='customer-view' v-if='state != "listing"'>
                 <button v-if='state == "update" || state == "view"' class='switch-update' v-on:click='state = stateSwitch'>{{stateSwitch}}</button>
                 <div class='main-info'>
                     <img v-bind:src='currentCust.picture'></img>
@@ -80,8 +80,8 @@
                         <input v-model='currentCust.company' placeholder='Company'>
                     </div>
                     <div class='two-inputs'>
-                        <input v-model='currentCust.billingAddress.province' placeholder='Province'></input>
-                        <input v-model='currentCust.billingAddress.country' placeholder='Country'></input>
+                        <input v-model='currentCust.billingAddress.province' placeholder='Province'>
+                        <input v-model='currentCust.billingAddress.country' placeholder='Country'>
                     </div>
                 </div>
                 <div class='cust-notes'>
@@ -92,6 +92,7 @@
 
                     </textarea>
                 </div>
+                <input type='submit' v-if='state != "view"' v-bind:value="state" v-on:click='submitCust'> 
             </section>
         
         </main>

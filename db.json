@@ -1,18 +1,18 @@
 {
-    "serviceRequests": [
-        {
-            "id": 0,
-            "date": "Sat Aug 02 1986 22:18:00 GMT+0000 (UTC)",
-            "serviceType": "CAR_UNLOCKING",
-            "customerId": 5,
-            "location": {
-                "street": "123 rue du Parisien",
-                "city": "Domain-de-la-Lavande",
-                "province": "Pyrénées-Orientales",
-                "country": "France"
-            }
-        }
-    ],
+  "serviceRequests": [
+    {
+      "id": 0,
+      "date": "Sat Aug 02 1986 22:18:00 GMT+0000 (UTC)",
+      "serviceType": "CAR_UNLOCKING",
+      "customerId": 5,
+      "location": {
+        "street": "123 rue du Parisien",
+        "city": "Domain-de-la-Lavande",
+        "province": "Pyrénées-Orientales",
+        "country": "France"
+      }
+    }
+  ],
   "customers": [
     {
       "id": 0,
@@ -130,7 +130,7 @@
       "id": 7,
       "picture": "http://placehold.it/32x32",
       "firstName": "Atkinson",
-      "lastName": "Clarke",
+      "lastName": "Rowan",
       "company": "ZBOO",
       "email": "atkinson.clarke@zboo.us",
       "phoneNumber": "+1 (950) 530-3025",
@@ -813,6 +813,38 @@
         "country": "Slovak Republic"
       },
       "notes": "Laboris amet fugiat voluptate sunt eiusmod. Incididunt aliquip elit occaecat cillum nisi Lorem est Lorem elit ipsum est non cupidatat eiusmod."
+    },
+    {
+      "id": 50,
+      "picture": "",
+      "firstName": "John",
+      "lastName": "Denver",
+      "company": "Lufa",
+      "email": "J.denver@mail.com",
+      "phoneNumber": "514 549 8217",
+      "billingAddress": {
+        "street": "2209 Rue Lise",
+        "city": "LaSalle",
+        "province": "Quebec",
+        "country": "Canada"
+      },
+      "notes": "This is me"
+    },
+    {
+      "id": 51,
+      "picture": "http://placehold.it/32x32",
+      "firstName": "Marye",
+      "lastName": "Boone",
+      "company": "SOPRANO",
+      "email": "mary.boone@soprano.net",
+      "phoneNumber": "+1 (951) 542-3514",
+      "billingAddress": {
+        "street": "1104 Vernon Avenue",
+        "city": "Berwind",
+        "province": "Maryland",
+        "country": "Croatia (Hrvatska)"
+      },
+      "notes": "Nostrud est enim veniam fugiat do in et ut excepteur reprehenderit aliqua proident cupidatat sunt. Elit amet nulla ipsum nostrud fugiat aliquip."
     }
   ]
 }

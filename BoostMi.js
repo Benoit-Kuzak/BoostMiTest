@@ -24,7 +24,6 @@ $(document).ready(function() {
         data: {
             customers: {},
             currentCust: null,
-            currentCustID: null,
             state: 'listing',
             sortVar: 'id',
             sortAsc: true,
@@ -53,6 +52,34 @@ $(document).ready(function() {
             createCustomer() {
                 this.state = "create";
                 this.currentCust = Object.assign({}, emptyCust);
+            },
+            submitCust() {
+                if (!this.currentCust.id) {
+                    $.ajax({
+                        type: "POST",
+                        url: baseUrl + 'customers',
+                        data: JSON.stringify(this.currentCust),
+                        contentType: "application/json",
+                        dataType: 'json',
+                        success: function(response) {
+                            this.customers[this.currentCust.id] = Object.assign({},this.currentCust);
+                            this.state = "view";
+                        }
+                    })
+                } else {
+                    $.ajax({
+                        type: "PUT",
+                        url: baseUrl + 'customers/'+this.currentCust.id,
+                        data: JSON.stringify(this.currentCust),
+                        contentType: "application/json",
+                        dataType: 'json',
+                        success: function(response) {
+                            this.customers[this.currentCust.id] = Object.assign({},this.currentCust);
+                            this.state = "view";
+                        }
+                    })
+                    
+                }
             }
         },
         // Obj used for table, based off basic list of customers
