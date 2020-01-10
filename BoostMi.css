@@ -1,8 +1,37 @@
+div {
+    box-sizing: border-box;
+}
 header {
     height: 60px;
     background: rgb(255, 213, 123);
     background-color: #FFD06B;
     border-bottom: 2px solid black;
+}
+input, textarea {
+    border: 1px solid black;
+    border-radius: 4px;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+textarea {
+    width: 100%;
+    min-height: 100px;
+}
+header a {
+    float: right;
+    height: 100%;
+    font-size: 20px;
+    line-height: 20px;
+    /* display: inline; */
+    box-sizing: border-box;
+    padding-top: 20px;
+    margin: 0 10px;
+    color: red;
+    text-decoration: underline;
+    cursor: pointer;
 }
 header #logo {
     height: calc(100% - 8px);
@@ -26,8 +55,10 @@ section {
     box-sizing: border-box;
 }
 section#customer-view {
+    position: relative;
     max-width: 600px;
     margin: 10px auto;
+    overflow: hidden;
 }
 table th, table td {
     min-width: 50px;
@@ -35,6 +66,9 @@ table th, table td {
     padding: 3px 0px;
     border-left: 1px solid black;
     border-right: 1px solid black;
+}
+table tr.alt_row td {
+    background: #BBBBBB;
 }
 table th:first-of-type, table td:first-of-type {
     border-left: 0;
@@ -53,14 +87,89 @@ table th {
 table th input {
     width: calc(100% - 20px);
     padding: 3px 5px;
-    border: 1px solid black;
-    border-radius: 4px;
     font-size: 16px;
 }
+/* General placement and behavior of main-info */
 .main-info {
     width: 100%;
 }
-.main-info img, .main-info div {
+.main-info img, .main-info #cust_name {
     display: inline-block;
     height: 128px;
+    vertical-align: top;
+}
+.main-info #cust_name div {
+    height: 50%;
+    width: 100%;
+    font-size: 28px;
+    line-height: 32px;
+}
+.main-info #cust_name div input {
+    height: 32px;
+    font-size: 28px;
+    line-height: 32px;
+    width: 80%;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+.main-info #cust_name div:first-of-type{
+    padding-top: 32px;
+}
+.main-info img {
+    border-radius: 5px;
+    min-width: 128px;
+    max-width: 128px;
+    margin-right: 10px;
+}
+/* Sizing of name div */
+.main-info #cust_name {
+    width: calc(100% - 148px);
+}
+/* Button for switching between update and view */
+section#customer-view button.switch-update{
+    width: calc(100% + 30px);
+    height: 40px;
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 700;
+    margin-top: -15px;
+    margin-left: -15px;
+    background: orange;
+    border: 0;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+/* Placement and general behavior of other-info */
+section#customer-view div.other-info {
+    margin-top: 10px;
+}
+section#customer-view div.other-info div {
+    width: 50%;
+    float: left;
+    font-size: 20px;
+    line-height: 20px;
+    padding: 3px 0;
+}
+section#customer-view div.other-info div input {
+    width: 90%;
+    height: 22px;
+    font-size: 20px;
+    line-height: 22px;
+}
+/* Side by side inputs */
+section#customer-view div.other-info div.two-inputs input {
+    width: 45%;
+    margin: 0;
+}
+/* Fields on right should text-align right */
+section#customer-view div.other-info div:nth-of-type(2n) {
+    text-align: right;
+}
+section#customer-view div.cust-notes {
+    width: 100%;
+    height: 100px;
+    font-size: 20px;
+}
+section#customer-view div.cust-notes textarea {
+    font-size: 20px;
 }

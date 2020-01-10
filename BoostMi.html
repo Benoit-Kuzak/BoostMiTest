@@ -9,43 +9,92 @@
 </head>
 
 <body>
-    <header>
-        <img id='logo' src='boostmi.png'>
-    </header>
-    <main id='app'>
-        <section id='customer-listing' v-if='state == "listing"'>
-            <table v-if='customers'>
-                <tr>
-                    <th v-on:click='sort("id")' v-bind:class='{sortingAsc : sortVar == "id" && sortAsc, sortingDesc :  sortVar == "id" && !sortAsc }'>ID</th>
-                    <th v-on:click='sort("firstName")'v-bind:class='{sortingAsc : sortVar == "firstName" && sortAsc, sortingDesc :  sortVar == "firstName" && !sortAsc }'>First Name</th>
-                    <th v-on:click='sort("lastName")' v-bind:class='{sortingAsc : sortVar == "lastName" && sortAsc, sortingDesc :  sortVar == "lastName" && !sortAsc }'>Last Name</th>
-                    <th v-on:click='sort("email")' v-bind:class='{sortingAsc : sortVar == "email" && sortAsc, sortingDesc :  sortVar == "email" && !sortAsc }'>Email</th>
-                    <th v-on:click='sort("company")' v-bind:class='{sortingAsc : sortVar == "company" && sortAsc, sortingDesc :  sortVar == "company" && !sortAsc }'>Company</th>
-                </tr>
-                <tr v-on:click>
-                    <th><input v-model='searchFields.id' placeholder='Search...'></th>
-                    <th><input v-model='searchFields.firstName' placeholder='Search...'></th>
-                    <th><input v-model='searchFields.lastName' placeholder='Search...'></th>
-                    <th><input v-model='searchFields.email' placeholder='Search...'></th>
-                    <th><input v-model='searchFields.company' placeholder='Search...'></th>
-                </tr v-on:click>
-                <tr v-for='cust in filteredCustomers' v-on:click='state = "view"; currentCust = cust.id'>
-                    <td>{{cust.id}}</td>
-                    <td>{{cust.firstName}}</td>
-                    <td>{{cust.lastName}}</td>
-                    <td>{{cust.email}}</td>
-                    <td>{{cust.company}}</td>   
-                </tr>
-            </table>
-        </section>
-        <section id='customer-view' v-if='state == "view"'>
-            <div class='main-info'>
-                <img v-bind:src='customers[currentCust].picture'></img>
-                <div v-if='state = "update" || state = "create"'><input></div>
-            </div>
+    <div id='app'>
+        <header>
+            <img id='logo' src='boostmi.png'>
+            <a v-if='state != "listing"'v-on:click='state = "listing"'>Customer Listing</a>
+            <a v-if='state != "create"'v-on:click='createCustomer'>Create Customer</a>
+        </header>
+        <main>
+            <section id='customer-listing' v-if='state == "listing"'>
+                <table v-if='customers'>
+                    <tr>
+                        <th v-on:click='sort("id")' v-bind:class='{sortingAsc : sortVar == "id" && sortAsc, sortingDesc :  sortVar == "id" && !sortAsc }'>ID</th>
+                        <th v-on:click='sort("firstName")'v-bind:class='{sortingAsc : sortVar == "firstName" && sortAsc, sortingDesc :  sortVar == "firstName" && !sortAsc }'>First Name</th>
+                        <th v-on:click='sort("lastName")' v-bind:class='{sortingAsc : sortVar == "lastName" && sortAsc, sortingDesc :  sortVar == "lastName" && !sortAsc }'>Last Name</th>
+                        <th v-on:click='sort("email")' v-bind:class='{sortingAsc : sortVar == "email" && sortAsc, sortingDesc :  sortVar == "email" && !sortAsc }'>Email</th>
+                        <th v-on:click='sort("company")' v-bind:class='{sortingAsc : sortVar == "company" && sortAsc, sortingDesc :  sortVar == "company" && !sortAsc }'>Company</th>
+                    </tr>
+                    <tr v-on:click>
+                        <th><input v-model='searchFields.id' placeholder='Search...'></th>
+                        <th><input v-model='searchFields.firstName' placeholder='Search...'></th>
+                        <th><input v-model='searchFields.lastName' placeholder='Search...'></th>
+                        <th><input v-model='searchFields.email' placeholder='Search...'></th>
+                        <th><input v-model='searchFields.company' placeholder='Search...'></th>
+                    </tr v-on:click>
+                    <tr v-for='(cust, key) in filteredCustomers' v-on:click='viewCustomer(cust.id)' v-bind:class='{alt_row: key % 2 == 1}'>
+                        <td>{{cust.id}}</td>
+                        <td>{{cust.firstName}}</td>
+                        <td>{{cust.lastName}}</td>
+                        <td>{{cust.email}}</td>
+                        <td>{{cust.company}}</td>   
+                    </tr>
+                </table>
+            </section>
+            <input id='customer-view' v-if='state != "listing"'>
+                <button v-if='state == "update" || state == "view"' class='switch-update' v-on:click='state = stateSwitch'>{{stateSwitch}}</button>
+                <div class='main-info'>
+                    <img v-bind:src='currentCust.picture'></img>
+                    <div id='cust_name' v-if='state == "update" || state == "create"'>
+                        <div><input v-model='currentCust.firstName' placeholder='First Name'></div>
+                        <div><input v-model='currentCust.lastName' placeholder='Last Name'></div>
+                    </div>
+                    <div v-else id='cust_name'>
+                        <div>{{currentCust.firstName}}</div>
+                        <div>{{currentCust.lastName}}</div>
+                    </div>
+                    
+                </div>
+                <div v-if='state == "view"' class='other-info clearfix'>
+                    <div>{{currentCust.email}}</div>
+                    <div>{{currentCust.billingAddress.street}}</div>
+                    <div>{{currentCust.phoneNumber}}</div>
+                    <div>{{currentCust.billingAddress.city}}</div>
+                    <div>{{currentCust.company}}</div>
+                    <div>{{currentCust.billingAddress.province}}, {{currentCust.billingAddress.country}}</div>
+                </div>
+                <div v-else class='other-info clearfix'>
+                    <div>
+                        <input v-model='currentCust.email' placeholder='Email'>
+                    </div>
+                    <div>
+                        <input v-model='currentCust.billingAddress.street' placeholder='Street'>
+                    </div>
+                    <div>
+                        <input v-model='currentCust.phoneNumber' placeholder='Phone #'>
+                    </div>
+                    <div>
+                        <input v-model='currentCust.billingAddress.city' placeholder='City'>
+                    </div>
+                    <div>
+                        <input v-model='currentCust.company' placeholder='Company'>
+                    </div>
+                    <div class='two-inputs'>
+                        <input v-model='currentCust.billingAddress.province' placeholder='Province'></input>
+                        <input v-model='currentCust.billingAddress.country' placeholder='Country'></input>
+                    </div>
+                </div>
+                <div class='cust-notes'>
+                    <p v-if='state == "view"'>
+                        {{currentCust.notes}}
+                    </p>
+                    <textarea v-else placeholder='Customer Notes' v-model='currentCust.notes'>
 
-        </section>
-       
-    </main>
+                    </textarea>
+                </div>
+            </section>
+        
+        </main>
+    </div>
 </body>
 

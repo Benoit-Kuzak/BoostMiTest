@@ -1,7 +1,22 @@
 // Our app obj, will be a Vue Obj once we finished loading the page.
 var app = {};
 var baseUrl = "http://localhost:3000/";
-
+var emptyCust = {
+    id: null,
+    picture: "",
+    firstName: "",
+    lastName: "",
+    company: "",
+    email: "",
+    phoneNumber: "",
+    billingAddress: {
+        street: "",
+        city: "",
+        province: "",
+        country: "",
+    },
+    notes: "",
+}
 $(document).ready(function() {
     app = new Vue({
         el: '#app',
@@ -9,6 +24,7 @@ $(document).ready(function() {
         data: {
             customers: {},
             currentCust: null,
+            currentCustID: null,
             state: 'listing',
             sortVar: 'id',
             sortAsc: true,
@@ -19,7 +35,6 @@ $(document).ready(function() {
                 lastName: '',
                 id: '',
             },
-            
         },
         methods: {
             // Sets the sort variables
@@ -30,6 +45,14 @@ $(document).ready(function() {
                     this.sortAsc = true;
                     this.sortVar = new_sort;
                 }
+            },
+            viewCustomer(cust_id) {
+                this.state = "view";
+                this.currentCust = Object.assign({}, this.customers[cust_id]);
+            },
+            createCustomer() {
+                this.state = "create";
+                this.currentCust = Object.assign({}, emptyCust);
             }
         },
         // Obj used for table, based off basic list of customers
@@ -49,7 +72,7 @@ $(document).ready(function() {
                         // Very simple string matching search (just to show that searching works)
                         // Could be modified to use better search/matching
                         if (typeof customer[field] == 'string') {
-                            if (searchTerm.trim() != '' && !customer[field].toLowerCase().includes(searchTerm.toLowerCase())) {
+                            if (searchTerm.trim() != '' && !customer[field].toLowerCase().includes(searchTerm.trim().toLowerCase())) {
                                 return false;
                             }
                         } else {
@@ -69,6 +92,14 @@ $(document).ready(function() {
                         return 1 * modifier;
                     }
                 })
+            },
+            stateSwitch: function() {
+                if (this.state == "view") {
+                    return "update";
+                } else if (this.state == "update") {
+                    return "view";
+                }
+                return "";
             }
         },
     });
