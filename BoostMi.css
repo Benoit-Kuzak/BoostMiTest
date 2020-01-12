@@ -70,6 +70,9 @@ table th, table td {
 table tr.alt_row td {
     background: #BBBBBB;
 }
+table tr {
+    cursor: pointer;
+}
 table th:first-of-type, table td:first-of-type {
     border-left: 0;
 }
@@ -92,6 +95,7 @@ table th input {
 /* General placement and behavior of main-info */
 .main-info {
     width: 100%;
+    position: relative;
 }
 .main-info img, .main-info #cust_name {
     display: inline-block;
@@ -121,10 +125,22 @@ table th input {
     max-width: 128px;
     margin-right: 10px;
 }
+/* Placing image field over image */
+.main-info #img_field {
+    max-width: 128px;
+    min-width: 128px;
+    bottom: 0;
+    height: 22px;
+    font-size: 20px;
+    line-height: 22px;
+    position: absolute;
+    left: 0;
+}
 /* Sizing of name div */
 .main-info #cust_name {
     width: calc(100% - 148px);
 }
+
 /* Button for switching between update and view */
 section#customer-view button.switch-update{
     width: calc(100% + 30px);
@@ -135,9 +151,17 @@ section#customer-view button.switch-update{
     margin-top: -15px;
     margin-left: -15px;
     background: orange;
-    border: 0;
+    border: 1px solid black;
+    border-radius: 8px;
     cursor: pointer;
     margin-bottom: 10px;
+}
+section#customer-view button.switch-update:hover{
+    background: darkorange;
+    border:3px solid black;
+}
+section#customer-view button.switch-update:focus{
+    outline: none;
 }
 /* Placement and general behavior of other-info */
 section#customer-view div.other-info {
@@ -172,4 +196,20 @@ section#customer-view div.cust-notes {
 }
 section#customer-view div.cust-notes textarea {
     font-size: 20px;
+}
+section#customer-view input[type=submit] {
+    width: 80%;
+    height: 40px;
+    margin: 20px 10%;
+    text-align: center;
+    font-size: 30px;
+    line-height: 30px;
+    background: orange;
+}
+section#customer-view input[type=submit]:hover {
+    background: darkorange;
+    border: 3px solid black;
+}
+section#customer-view input[type=submit]:focus {
+    outline: none;
 }

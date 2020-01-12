@@ -45,6 +45,7 @@
                 <button v-if='state == "update" || state == "view"' class='switch-update' v-on:click='state = stateSwitch'>{{stateSwitch}}</button>
                 <div class='main-info'>
                     <img v-bind:src='currentCust.picture'></img>
+                    <input v-if='state == "update" || state == "create"' placeholder='IMG url' id='img_field' v-model='currentCust.picture'>
                     <div id='cust_name' v-if='state == "update" || state == "create"'>
                         <div><input v-model='currentCust.firstName' placeholder='First Name'></div>
                         <div><input v-model='currentCust.lastName' placeholder='Last Name'></div>
