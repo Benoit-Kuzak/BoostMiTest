@@ -13,6 +13,44 @@
       }
     }
   ],
+  "requests": [
+    {
+      "date": "2020-01-22",
+      "customer_id": 4,
+      "type": "key",
+      "location": {
+        "street": "2209",
+        "city": "Rue Lise",
+        "province": "Quebec",
+        "country": "Canada"
+      },
+      "id": 1
+    },
+    {
+      "date": "2020-01-15",
+      "customer_id": 3,
+      "type": "key",
+      "location": {
+        "street": "2209",
+        "city": "Rue Lise",
+        "province": "Quebec",
+        "country": "Canada"
+      },
+      "id": 2
+    },
+    {
+      "date": "2020-01-15",
+      "customer_id": 7,
+      "type": "TOW",
+      "location": {
+        "street": "2209",
+        "city": "Rue Lise",
+        "province": "Quebec",
+        "country": "Canada"
+      },
+      "id": 3
+    }
+  ],
   "customers": [
     {
       "id": 0,

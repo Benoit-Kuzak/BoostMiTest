@@ -20,7 +20,7 @@ var emptyCust = {
 var emptyRequest = {
     date: null,
     customer_id: null,
-    type: null,
+    type: "PROFESSIONAL_BOOST",
     location: {
         street: '',
         city: '',
@@ -29,12 +29,6 @@ var emptyRequest = {
     }
 }
 
-var serviceTypes = {
-    'PROFESSIONAL_BOOST': "Boost by a professional",
-    'CAR_UNLOCKING': "Unlocking of car",
-    'TOW': "Towing",
-    'GAS_DELIVERY': "Gas delivery",
-}
 $(document).ready(function() {
     app = new Vue({
         el: '#app',
@@ -56,6 +50,12 @@ $(document).ready(function() {
 
             },
             currentRequest: null,
+            serviceTypes: {
+                'PROFESSIONAL_BOOST': "Boost by a professional",
+                'CAR_UNLOCKING': "Unlocking of car",
+                'TOW': "Towing",
+                'GAS_DELIVERY': "Gas delivery",
+            }
         },
         methods: {
             // Sets the sort variables
@@ -70,6 +70,18 @@ $(document).ready(function() {
             viewCustomer(cust_id) {
                 this.state = "view";
                 this.currentCust = Object.assign({}, this.customers[cust_id]);
+                // Fetch requests
+                $.ajax({
+                    url: baseUrl + 'requests',
+                    data: {
+                        customer_id: cust_id, 
+                    },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        app.requestsForCustomer = response;
+                    }
+                })
             },
             createCustomer() {
                 this.state = "create";
@@ -104,9 +116,25 @@ $(document).ready(function() {
                     
                 }
             },
+            submitReq() {
+                $.ajax({
+                    type: "POST",
+                    url: baseUrl + 'requests',
+                    data: JSON.stringify(this.currentRequest),
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function(response) {
+                        // Next key
+                        key = Object.keys(app.requestsForCustomer).length;
+                        app.requestsForCustomer[key] = response;
+                        app.state = "view";
+                    }
+                })
+            },
             createRequest() {
                 this.state = "createReq";
                 this.currentRequest = Object.assign({}, emptyRequest);
+                this.currentRequest.customer_id = this.currentCust.id;
             },
             viewRequest(request_key) {
                 this.state = "viewReq";

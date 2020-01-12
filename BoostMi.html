@@ -25,13 +25,13 @@
                         <th v-on:click='sort("email")' v-bind:class='{sortingAsc : sortVar == "email" && sortAsc, sortingDesc :  sortVar == "email" && !sortAsc }'>Email</th>
                         <th v-on:click='sort("company")' v-bind:class='{sortingAsc : sortVar == "company" && sortAsc, sortingDesc :  sortVar == "company" && !sortAsc }'>Company</th>
                     </tr>
-                    <tr v-on:click>
+                    <tr>
                         <th><input v-model='searchFields.id' placeholder='Search...'></th>
                         <th><input v-model='searchFields.firstName' placeholder='Search...'></th>
                         <th><input v-model='searchFields.lastName' placeholder='Search...'></th>
                         <th><input v-model='searchFields.email' placeholder='Search...'></th>
                         <th><input v-model='searchFields.company' placeholder='Search...'></th>
-                    </tr v-on:click>
+                    </tr>
                     <tr v-for='(cust, key) in filteredCustomers' v-on:click='viewCustomer(cust.id)' v-bind:class='{alt_row: key % 2 == 1}'>
                         <td>{{cust.id}}</td>
                         <td>{{cust.firstName}}</td>
@@ -94,11 +94,65 @@
                     </textarea>
                 </div>
                 <input type='submit' v-if='state != "view"' v-bind:value="state" v-on:click='submitCust'> 
-                <button v-if='state = "view"' v-on:click='createRequest'>Create Request for customer</button>
+                <button v-if='state == "view"' v-on:click='createRequest'>Create Request for customer</button>
             </section>
             <!-- SERVICE REQUESTS -->
-            <section v-if='state == "createReq" || state == "viewReq"' id='request_view'>
+            <section v-if='requestsForCustomer[0] && state=="view"' id='request-listing'>
+                <h1>REQUESTS</h1>
+                <table>
+                    <tr>
+                        <th>Service Type</th>
+                        <th>Date</th>
+                        <th>Street</th>
+                        <th>City</th>
+                        <th>Province</th>
+                        <th>Country</th>
+                    </tr>
+                    
+                    <tr v-for='(req, key) in requestsForCustomer' v-on:click='viewRequest(key)' v-bind:class='{alt_row: key % 2 == 1}'>
+                        <td>{{serviceTypes[req.type]}}</td>
+                        <td>{{req.date}}</td>
+                        <td>{{req.location.street}}</td>
+                        <td>{{req.location.city}}</td>
+                        <td>{{req.location.province}}</td>   
+                        <td>{{req.location.country}}</td>   
+                    </tr>
+
+                </table>
+            </section>
+            <section v-if='state == "createReq" || state == "viewReq"' id='request-view'>
                 <button v-on:click='state = "view"'>Back to customer</button>
+                <div v-if='state == "viewReq"' class='other-info clearfix'>
+                    <div>{{serviceTypes[currentRequest.type]}}</div>
+                    <div>{{currentRequest.location.street}}</div>
+                    <div>{{customers[currentRequest.customer_id].firstName}} {{customers[currentRequest.customer_id].lastName}}</div>
+                    <div>{{currentRequest.location.city}}</div>
+                    <div>{{currentRequest.date}}</div>
+                    <div>{{currentRequest.location.province}}, {{currentRequest.location.country}}</div>
+                </div>
+                <div v-else class='other-info clearfix'>
+                    <div>
+                        <select v-model='currentRequest.type'>
+                            <option v-for='(text,key) in serviceTypes' v-bind:value='key'>{{text}}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input v-model='currentRequest.location.street' placeholder='Street'>
+                    </div>
+                    <div>{{customers[currentRequest.customer_id].firstName}} {{customers[currentRequest.customer_id].lastName}}</div>
+                    <div>
+                        <input v-model='currentRequest.location.city' placeholder='City'>
+                    </div>
+                    <div>
+                        <input type='date' v-model='currentRequest.date'>
+                    </div>
+                    <div class='two-inputs'>
+                        <input v-model='currentRequest.location.province' placeholder='Province'>
+                        <input v-model='currentRequest.location.country' placeholder='Country'>
+                    </div>
+                </div>
+                <input type='submit' v-if='state == "createReq"' value='create' v-on:click='submitReq'> 
+
             </section>
             
         </main>
