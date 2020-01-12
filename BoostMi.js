@@ -16,6 +16,24 @@ var emptyCust = {
         country: "",
     },
     notes: "",
+};
+var emptyRequest = {
+    date: null,
+    customer_id: null,
+    type: null,
+    location: {
+        street: '',
+        city: '',
+        province: '',
+        country: '',
+    }
+}
+
+var serviceTypes = {
+    'PROFESSIONAL_BOOST': "Boost by a professional",
+    'CAR_UNLOCKING': "Unlocking of car",
+    'TOW': "Towing",
+    'GAS_DELIVERY': "Gas delivery",
 }
 $(document).ready(function() {
     app = new Vue({
@@ -34,6 +52,10 @@ $(document).ready(function() {
                 lastName: '',
                 id: '',
             },
+            requestsForCustomer: {
+
+            },
+            currentRequest: null,
         },
         methods: {
             // Sets the sort variables
@@ -81,6 +103,14 @@ $(document).ready(function() {
                     })
                     
                 }
+            },
+            createRequest() {
+                this.state = "createReq";
+                this.currentRequest = Object.assign({}, emptyRequest);
+            },
+            viewRequest(request_key) {
+                this.state = "viewReq";
+                this.currentRequest = Object.assign({}, this.requestsForCustomer[request_key]);
             }
         },
         // Obj used for table, based off basic list of customers
@@ -130,6 +160,11 @@ $(document).ready(function() {
                 return "";
             }
         },
+        watch: {
+            state: function(new_val) {
+                console.log(new_val);
+            }
+        }
     });
     $.ajax({
         url: baseUrl + 'customers',

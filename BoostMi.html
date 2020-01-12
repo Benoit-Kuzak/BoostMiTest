@@ -41,7 +41,7 @@
                     </tr>
                 </table>
             </section>
-            <section id='customer-view' v-if='state != "listing"'>
+            <section id='customer-view' v-if='state == "view" || state == "create" || state == "update"'>
                 <button v-if='state == "update" || state == "view"' class='switch-update' v-on:click='state = stateSwitch'>{{stateSwitch}}</button>
                 <div class='main-info'>
                     <img v-bind:src='currentCust.picture'></img>
@@ -94,8 +94,13 @@
                     </textarea>
                 </div>
                 <input type='submit' v-if='state != "view"' v-bind:value="state" v-on:click='submitCust'> 
+                <button v-if='state = "view"' v-on:click='createRequest'>Create Request for customer</button>
             </section>
-        
+            <!-- SERVICE REQUESTS -->
+            <section v-if='state == "createReq" || state == "viewReq"' id='request_view'>
+                <button v-on:click='state = "view"'>Back to customer</button>
+            </section>
+            
         </main>
     </div>
 </body>

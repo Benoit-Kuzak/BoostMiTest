@@ -16,6 +16,9 @@ input, textarea {
     clear: both;
     display: table;
 }
+button {
+
+}
 textarea {
     width: 100%;
     min-height: 100px;
@@ -212,4 +215,12 @@ section#customer-view input[type=submit]:hover {
 }
 section#customer-view input[type=submit]:focus {
     outline: none;
+}
+
+
+section#request_view {
+    position: relative;
+    max-width: 600px;
+    margin: 10px auto;
+    overflow: hidden;
 }
