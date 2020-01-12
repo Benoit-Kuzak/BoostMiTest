@@ -70,7 +70,7 @@ $(document).ready(function() {
             viewCustomer(cust_id) {
                 this.state = "view";
                 this.currentCust = Object.assign({}, this.customers[cust_id]);
-                // Fetch requests
+                // Fetch requests for this customer
                 $.ajax({
                     url: baseUrl + 'requests',
                     data: {
@@ -88,7 +88,7 @@ $(document).ready(function() {
                 this.currentCust = Object.assign({}, emptyCust);
             },
             submitCust() {
-                
+                // Create scenario
                 if (!this.currentCust.id) {
                     $.ajax({
                         type: "POST",
@@ -101,6 +101,7 @@ $(document).ready(function() {
                             app.state = "view";
                         }
                     })
+                // Update scenario
                 } else {
                     $.ajax({
                         type: "PUT",
@@ -188,12 +189,9 @@ $(document).ready(function() {
                 return "";
             }
         },
-        watch: {
-            state: function(new_val) {
-                console.log(new_val);
-            }
-        }
     });
+
+    // Fetch customers on page load
     $.ajax({
         url: baseUrl + 'customers',
         type: 'GET',
